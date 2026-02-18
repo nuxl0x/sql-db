@@ -1,3 +1,4 @@
+import data.Data
 import util.*
 import java.sql.SQLException
 
@@ -25,7 +26,10 @@ class QueryHandler {
             }
         }
 
-        commandCategory
+        val dbAction = when (commandCategory) {
+            else -> {}
+        }
+        return Command(DbAction.NONE, "", Data.None(), Type.NONE)
     }
 
     private fun new() {}
