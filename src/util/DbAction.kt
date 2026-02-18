@@ -1,0 +1,18 @@
+package util
+
+enum class DbAction {
+    NONE,
+
+    NEW_ENTRY,
+    REMOVE_ENTRY_BY_NAME,
+    REMOVE_ENTRY_BY_ID,
+    LIST_ALL_ENTRIES,
+    LIST_ENTRIES_BY_FILTER,
+    GET_ENTRY_FROM_ID,
+
+    NEW_TABLE,
+    ERASE_TABLE,
+    REMOVE_TABLE,
+    LIST_ALL_TABLES,
+    GET_TABLE_TYPE
+}

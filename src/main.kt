@@ -1,9 +1,8 @@
-import util.API
-import util.data.Entry
-import util.data.EntryType
+import data.Book
+
+var workingTable = ""
 
 fun main() {
-    val book = Entry.Book("Harry Potter")
-    val query = API.CREATE_ENTRY.exec("books", book, EntryType.BOOK)
-    println(query)
+    val cool = Book.new("title")
+    println(cool)
 }
