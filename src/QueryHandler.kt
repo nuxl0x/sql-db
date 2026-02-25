@@ -1,58 +1,30 @@
-import data.Data
 import util.*
-import java.sql.SQLException
 
 /**
  * Responsible for handling queries to the database.
  *
  * Implements the functionality to allow for the easy undoing of actions,
  * in addition to being able to cancel a given write.
+ *
+ * If you wish to bypass this functionality, feel free to make a custom handler for queries.
+ * It is important to note that the Database will only accept a `Command()` as the input.
  */
 
 class QueryHandler {
     val commandBuffer = mutableListOf<Command>()
     val database = Database()
-
-    private fun queryParser(query: Query): Command {
-        val commandCategory = when (query.type) {
-            Type.NONE -> {
-                "none"
-            }
-            Type.TABLE -> {
-                "table"
-            }
-            else -> {
-                "entry"
-            }
-        }
-
-        val dbAction = when (commandCategory) {
-            else -> {}
-        }
-        return Command(DbAction.NONE, "", Data.None(), Type.NONE)
-    }
-
-    private fun new() {}
-    private fun erase() {}
-    private fun remove() {}
-    private fun list() {}
-    private fun get() {}
+    val parser = QueryParser()
 
     private fun addToBuffer(query: Query) {
-        when (query.action) {
-            Action.NEW -> new()
-            Action.ERASE -> erase()
-            Action.REMOVE -> remove()
-            Action.LIST -> list()
-            Action.GET -> get()
-            else -> {}
-        }
+        val command = parser.parse(query)
+        commandBuffer.add(command)
     }
 
     private fun writeBuffer() {
         commandBuffer.forEach { command ->
             database.execute(command)
         }
+        cancelBuffer()
     }
 
     private fun undoFromBuffer() {
@@ -70,11 +42,11 @@ class QueryHandler {
      */
     fun query(query: Query) {
         when (query.action) {
-            Action.NONE -> {}
             Action.WRITE -> writeBuffer()
             Action.UNDO -> undoFromBuffer()
             Action.CANCEL_WRITE -> cancelBuffer()
             else -> addToBuffer(query)
         }
     }
+
 }

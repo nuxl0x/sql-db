@@ -1,8 +1,8 @@
-import data.Book
+import data.Data
+import util.*
 
 var workingTable = ""
 
 fun main() {
-    val cool = Book.new("title")
-    println(cool)
+
 }

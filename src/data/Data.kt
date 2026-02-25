@@ -3,7 +3,8 @@ package data
 sealed interface Data {
     data class None(val none: String = "") : Data
     data class Filter(val filter: String = "") : Data
+    data class Id(val id: Int = 0) : Data
 
-    // Entry Classes
+    // Record Classes
     data class Book(val title: String = "") : Data
 }
